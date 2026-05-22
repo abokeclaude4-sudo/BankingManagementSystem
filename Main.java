@@ -101,14 +101,18 @@ public class Main {
                     break;
 
                 case 7:
-                    System.out.println("Exiting system...");
+                    manager.viewTransactions();
                     break;
+
+                case 8:
+                   System.out.println("Goodbye!");
+                   break;
 
                 default:
                     System.out.println("Invalid option.");
             }
 
-        } while (choice != 7);
+        } while (choice != 8);
 
         scanner.close();
     }
