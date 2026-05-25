@@ -1,73 +1,89 @@
 import java.util.ArrayList;
+
 public class BankAccount {
-    
 
     private int accountNumber;
-    private String accountHolder;
-    private double balance;
+    private String ownerName;
+    protected double balance;
+
     private ArrayList<Transaction> transactions;
 
-    // Constructor
-    public BankAccount(int accountNumber, String accountHolder, double balance) {
+    public BankAccount(int accountNumber, String ownerName, double balance) {
 
         this.accountNumber = accountNumber;
-        this.accountHolder = accountHolder;
+        this.ownerName = ownerName;
         this.balance = balance;
-        this.transactions = new ArrayList<>();
+
+        transactions = new ArrayList<>();
+    }
+    public void setBalance(double balance) {
+    this.balance = balance;
+   } 
+
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
-    // Deposit Method
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
     public void deposit(double amount) {
-    balance += amount;
 
-        transactions.add(
-          new Transaction("Deposit", amount)
-    );
+        balance += amount;
 
-    System.out.println("Deposit successful.");
+        transactions.add(new Transaction("Deposit", amount));
 
+        System.out.println("Deposit successful.");
     }
 
-    // Withdraw Method
     public void withdraw(double amount) {
 
         if (amount <= balance) {
+
             balance -= amount;
 
-            transactions.add(
-                new Transaction("Withdrawal", amount)
-            );
+            transactions.add(new Transaction("Withdraw", amount));
 
             System.out.println("Withdrawal successful.");
+
         } else {
-            System.out.println("Insufficient balance.");
+
+            System.out.println("Insufficient funds.");
         }
     }
 
-    // Display Balance
     public void displayBalance() {
 
         System.out.println("Current Balance: $" + balance);
     }
 
-    // Display Account
-    public void displayAccount() {
+    public void displayTransactions() {
 
-    System.out.println("\nAccount Number: " + accountNumber);
-    System.out.println("Account Holder: " + accountHolder);
-    System.out.println("Balance: $" + balance);
+        if (transactions.isEmpty()) {
 
+            System.out.println("No transactions found.");
+
+        } else {
+
+            System.out.println("\nTransaction History:");
+
+            for (Transaction t : transactions) {
+
+                System.out.println(t);
+            }
+        }
     }
 
-    // Getter
-    public int getAccountNumber() {
+    @Override
+    public String toString() {
 
-        return accountNumber;
-    }
-
-    public double getBalance() {
-
-        return balance;
+        return "Account Number: " + accountNumber +
+               ", Name: " + ownerName +
+               ", Balance: $" + balance;
     }
 }
-

@@ -1,38 +1,33 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BankManager {
 
-    // ArrayList to store bank accounts
     private ArrayList<BankAccount> accounts = new ArrayList<>();
 
-    // ArrayList to store transactions
-    private ArrayList<Transaction> transactions = new ArrayList<>();
-
-    // Transaction ID counter
-    private int nextTransactionId = 1;
-
     // Create Account
-    public void createAccount(int accountNumber, String accountHolder, double balance) {
+    public void createAccount(int accountNumber, String name, double balance) {
 
-        BankAccount newAccount =
-                new BankAccount(accountNumber, accountHolder, balance);
+        BankAccount account = new BankAccount(accountNumber, name, balance);
 
-        accounts.add(newAccount);
+        accounts.add(account);
 
         System.out.println("Account created successfully.");
     }
 
-    // View All Accounts
+    // View Accounts
     public void viewAccounts() {
 
         if (accounts.isEmpty()) {
-            System.out.println("No accounts found.");
-            return;
-        }
 
-        for (BankAccount account : accounts) {
-            account.displayAccount();
-            System.out.println("------------------");
+            System.out.println("No accounts found.");
+
+        } else {
+
+            for (BankAccount account : accounts) {
+
+                System.out.println(account);
+            }
         }
     }
 
@@ -42,6 +37,7 @@ public class BankManager {
         for (BankAccount account : accounts) {
 
             if (account.getAccountNumber() == accountNumber) {
+
                 return account;
             }
         }
@@ -57,18 +53,10 @@ public class BankManager {
         if (account != null) {
 
             account.deposit(amount);
-
-            transactions.add(
-                    new Transaction(
-                            nextTransactionId++,
-                            account.getAccountNumber(),
-                            "Deposit",
-                            amount,
-                            java.time.LocalDate.now().toString()
-                    )
-            );
+            account.displayBalance();
 
         } else {
+
             System.out.println("Account not found.");
         }
     }
@@ -81,18 +69,10 @@ public class BankManager {
         if (account != null) {
 
             account.withdraw(amount);
-
-            transactions.add(
-                    new Transaction(
-                            nextTransactionId++,
-                            account.getAccountNumber(),
-                            "Withdrawal",
-                            amount,
-                            java.time.LocalDate.now().toString()
-                    )
-            );
+            account.displayBalance();
 
         } else {
+
             System.out.println("Account not found.");
         }
     }
@@ -103,9 +83,13 @@ public class BankManager {
         BankAccount account = searchAccount(accountNumber);
 
         if (account != null) {
+
             accounts.remove(account);
+
             System.out.println("Account deleted successfully.");
+
         } else {
+
             System.out.println("Account not found.");
         }
     }
@@ -113,13 +97,20 @@ public class BankManager {
     // View Transactions
     public void viewTransactions() {
 
-        if (transactions.isEmpty()) {
-            System.out.println("No transactions found.");
-            return;
-        }
+        Scanner input = new Scanner(System.in);
 
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction);
+        System.out.print("Enter Account Number: ");
+        int accountNumber = input.nextInt();
+
+        BankAccount account = searchAccount(accountNumber);
+
+        if (account != null) {
+
+            account.displayTransactions();
+
+        } else {
+
+            System.out.println("Account not found.");
         }
     }
 }
