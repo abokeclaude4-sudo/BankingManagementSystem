@@ -18,7 +18,7 @@ A Java-based Banking System application developed using Object-Oriented Programm
 ## Technologies Used
 
 - Java
-- Eclipse IDE
+- VS Code / Eclipse IDE
 - ArrayList
 - File Handling
 - OOP Concepts
@@ -69,6 +69,7 @@ Saved accounts automatically reload when the program starts.
 - Money transfer between accounts
 - Admin dashboard
 - Encryption and security features
+- Graphical User Interface (GUI) with java swing
 
 ## Author
 
