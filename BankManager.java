@@ -3,7 +3,10 @@ import java.util.Scanner;
 
 public class BankManager {
 
-    private ArrayList<BankAccount> accounts = new ArrayList<>();
+    private ArrayList<BankAccount> accounts; 
+    public BankManager() {
+        accounts = FileManager.loadAccounts();
+    }
 
     // Create Account
     public void createAccount(int accountNumber, String name, double balance) {
@@ -13,8 +16,8 @@ public class BankManager {
         accounts.add(account);
 
         System.out.println("Account created successfully.");
+        FileManager.saveAccount(account);
     }
-
     // View Accounts
     public void viewAccounts() {
 
@@ -53,7 +56,7 @@ public class BankManager {
         if (account != null) {
 
             account.deposit(amount);
-            account.displayBalance();
+            System.out.println("Current balance: $" + account.getBalance());
 
         } else {
 
@@ -69,7 +72,7 @@ public class BankManager {
         if (account != null) {
 
             account.withdraw(amount);
-            account.displayBalance();
+            System.out.println("Current balance: $" + account.getBalance());
 
         } else {
 
