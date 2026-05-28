@@ -27,23 +27,30 @@ public class Main {
             choice = scanner.nextInt();
 
             switch (choice) {
-
+               
                 case 1:
+            System.out.print("Enter Account Number: ");
+            int accountNumber = scanner.nextInt();
 
-                    System.out.print("Enter Account Number: ");
-                    int accountNumber = scanner.nextInt();
+            scanner.nextLine();
 
-                    scanner.nextLine();
+            System.out.print("Enter Customer Name: ");
+            String customerName = scanner.nextLine();
 
-                    System.out.print("Enter Account Holder Name: ");
-                    String name = scanner.nextLine();
+            System.out.print("Enter Phone Number: ");
+            String phone = scanner.nextLine();
 
-                    System.out.print("Enter Initial Balance: ");
-                    double balance = scanner.nextDouble();
+            System.out.print("Enter Email: ");
+            String email = scanner.nextLine();
 
-                    manager.createAccount(accountNumber, name, balance);
+            Customer customer =
+                   new Customer(accountNumber, customerName, phone, email);
 
-                    break;
+            System.out.print("Enter Initial Balance: ");
+            double balance = scanner.nextDouble();
+
+            manager.createAccount(accountNumber, customer, balance);
+            break;
 
                 case 2:
 
@@ -60,11 +67,11 @@ public class Main {
 
                     if (foundAccount != null) {
 
-                        System.out.println(foundAccount);
-
+                        foundAccount.displayAccount();
                     } else {
 
                         System.out.println("Account not found.");
+
                     }
 
                     break;

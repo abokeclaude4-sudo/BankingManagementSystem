@@ -9,15 +9,18 @@ public class BankManager {
     }
 
     // Create Account
-    public void createAccount(int accountNumber, String name, double balance) {
+    // Create Account
+public void createAccount(int accountNumber, Customer customer, double balance) {
 
-        BankAccount account = new BankAccount(accountNumber, name, balance);
+    BankAccount account =
+            new BankAccount(accountNumber, customer, balance);
 
-        accounts.add(account);
+    accounts.add(account);
 
-        System.out.println("Account created successfully.");
-        FileManager.saveAccount(account);
-    }
+    System.out.println("Account created successfully.");
+
+    FileManager.saveAccount(account);
+}
     // View Accounts
     public void viewAccounts() {
 
@@ -29,7 +32,8 @@ public class BankManager {
 
             for (BankAccount account : accounts) {
 
-                System.out.println(account);
+                account.displayAccount();
+                System.out.println("-----------------------");
             }
         }
     }

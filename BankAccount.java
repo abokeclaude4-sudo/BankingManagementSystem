@@ -5,18 +5,32 @@ public class BankAccount {
     private int accountNumber;
     private String ownerName;
     protected double balance;
+    private Customer customer; 
 
     private ArrayList<Transaction> transactions;
 
-    public BankAccount(int accountNumber, String ownerName, double balance) {
+    public BankAccount(int accountNumber, Customer customer, double balance) {
         this.accountNumber = accountNumber;
-        this.ownerName = ownerName;
+        this.customer = customer;
         this.balance = balance;
         this.transactions = new ArrayList<>();
     }
+    public BankAccount(int accountNumber, String accountHolder, double balance) {
+
+    this.accountNumber = accountNumber;
+    this.customer = new Customer(accountNumber, accountHolder, "N/A", "N/A");
+    this.balance = balance;
+    this.transactions = new ArrayList<>();
+}
 
     public int getAccountNumber() {
         return accountNumber;
+    }
+    public void displayAccount() {
+
+    System.out.println("Account Number: " + accountNumber);
+    System.out.println("Customer Name: " + customer.getFullName());
+    System.out.println("Balance: $" + balance);
     }
 
     public String getOwnerName() {
@@ -50,10 +64,10 @@ public class BankAccount {
             System.out.println("Insufficient funds.");
         }
     }
-        public void displayTransactions() {
-    if (transactions.isEmpty()) {
+    public void displayTransactions() {
+        if (transactions.isEmpty()) {
         System.out.println("No transactions found.");
-    } else {
+        } else {
         System.out.println("\nTransaction History:");
 
         for (Transaction t : transactions) {
