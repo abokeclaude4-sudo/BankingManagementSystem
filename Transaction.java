@@ -1,53 +1,19 @@
-public class Transaction {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    private int transactionId;
-    private int accountId;
+public class Transaction {
     private String type;
     private double amount;
-    private String date;
+    private LocalDateTime dateTime;
 
-    // Full Constructor
-    public Transaction(int transactionId, int accountId, String type, double amount, String date) {
-
-        this.transactionId = transactionId;
-        this.accountId = accountId;
-        this.type = type;
-        this.amount = amount;
-        this.date = date;
-    }
-
-    // Simple Constructor
     public Transaction(String type, double amount) {
-
         this.type = type;
         this.amount = amount;
+        this.dateTime = LocalDateTime.now();
     }
 
-    // Getters
-    public int getTransactionId() {
-        return transactionId;
-    }
-
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    // Display Transaction
-    @Override
     public String toString() {
-
-        return type + " - $" + amount;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return dateTime.format(formatter) + " | " + type + " | $" + amount;
     }
 }

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class BankAccount {
 
     private int accountNumber;
-    private String ownerName;
     protected double balance;
     private Customer customer; 
 
@@ -34,7 +33,7 @@ public class BankAccount {
     }
 
     public String getOwnerName() {
-        return ownerName;
+        return customer.getFullName();
     }
 
     public double getBalance() {
@@ -79,9 +78,9 @@ public class BankAccount {
 }
 
     @Override
-    public String toString() {
-        return "Account Number: " + accountNumber +
-               ", Name: " + ownerName +
-               ", Balance: $" + balance;
-    }
+public String toString() {
+    return "Account Number: " + accountNumber +
+           ", Name: " + customer.getFullName() +
+           ", Balance: $" + balance;
+  } 
 }
