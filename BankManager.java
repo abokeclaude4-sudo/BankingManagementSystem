@@ -3,35 +3,31 @@ import java.util.Scanner;
 
 public class BankManager {
 
-    private ArrayList<BankAccount> accounts; 
+    private ArrayList<BankAccount> accounts;
+
     public BankManager() {
         accounts = FileManager.loadAccounts();
     }
 
     // Create Account
-    // Create Account
-public void createAccount(int accountNumber, Customer customer, double balance) {
+    public void createAccount(int accountNumber, Customer customer, double balance) {
 
-    BankAccount account =
-            new BankAccount(accountNumber, customer, balance);
+        BankAccount account = new BankAccount(accountNumber, customer, balance);
 
-    accounts.add(account);
+        accounts.add(account);
 
-    System.out.println("Account created successfully.");
+        FileManager.saveAllAccounts(accounts);
 
-    FileManager.saveAccount(account);
-}
+        System.out.println("Account created successfully.");
+    }
+
     // View Accounts
     public void viewAccounts() {
 
         if (accounts.isEmpty()) {
-
             System.out.println("No accounts found.");
-
         } else {
-
             for (BankAccount account : accounts) {
-
                 account.displayAccount();
                 System.out.println("-----------------------");
             }
@@ -42,9 +38,7 @@ public void createAccount(int accountNumber, Customer customer, double balance) 
     public BankAccount searchAccount(int accountNumber) {
 
         for (BankAccount account : accounts) {
-
             if (account.getAccountNumber() == accountNumber) {
-
                 return account;
             }
         }
@@ -58,12 +52,10 @@ public void createAccount(int accountNumber, Customer customer, double balance) 
         BankAccount account = searchAccount(accountNumber);
 
         if (account != null) {
-
             account.deposit(amount);
+            FileManager.saveAllAccounts(accounts);
             System.out.println("Current balance: $" + account.getBalance());
-
         } else {
-
             System.out.println("Account not found.");
         }
     }
@@ -74,12 +66,10 @@ public void createAccount(int accountNumber, Customer customer, double balance) 
         BankAccount account = searchAccount(accountNumber);
 
         if (account != null) {
-
             account.withdraw(amount);
+            FileManager.saveAllAccounts(accounts);
             System.out.println("Current balance: $" + account.getBalance());
-
         } else {
-
             System.out.println("Account not found.");
         }
     }
@@ -90,13 +80,10 @@ public void createAccount(int accountNumber, Customer customer, double balance) 
         BankAccount account = searchAccount(accountNumber);
 
         if (account != null) {
-
             accounts.remove(account);
-
+            FileManager.saveAllAccounts(accounts);
             System.out.println("Account deleted successfully.");
-
         } else {
-
             System.out.println("Account not found.");
         }
     }
@@ -112,11 +99,8 @@ public void createAccount(int accountNumber, Customer customer, double balance) 
         BankAccount account = searchAccount(accountNumber);
 
         if (account != null) {
-
             account.displayTransactions();
-
         } else {
-
             System.out.println("Account not found.");
         }
     }

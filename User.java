@@ -44,4 +44,10 @@ public class User {
         System.out.println("Security Question: " + securityQuestion);
        
     }
+    @Override
+    public String toString() {
+    return "Username: " + username +
+           "\nFull Name: " + fullName +
+           "\nRole: " + role;
+   }
 }

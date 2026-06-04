@@ -7,79 +7,92 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         BankManager manager = new BankManager();
-
-        int choice;
         LoginManager loginManager = new LoginManager();
 
         boolean loggedIn = false;
-User loggedInUser = null;
+        User loggedInUser = null;
 
-while (!loggedIn) {
+        // =========================
+        // LOGIN SYSTEM
+        // =========================
 
-    System.out.println("\n===== BANK LOGIN SYSTEM =====");
-    System.out.println("1. Register");
-    System.out.println("2. Login");
-    System.out.println("3. Exit");
-    System.out.print("Choose option: ");
+        while (!loggedIn) {
 
-    int loginChoice = scanner.nextInt();
-    scanner.nextLine();
+            System.out.println("\n===== BANK LOGIN SYSTEM =====");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            System.out.print("Choose option: ");
 
-    if (loginChoice == 1) {
+            int loginChoice = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
+            if (loginChoice == 1) {
 
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+                System.out.print("Enter username: ");
+                String username = scanner.nextLine();
 
-        System.out.print("Enter full name: ");
-        String fullName = scanner.nextLine();
+                System.out.print("Enter password: ");
+                String password = scanner.nextLine();
 
-        System.out.print("Enter security question: ");
-        String securityQuestion = scanner.nextLine();
+                System.out.print("Enter full name: ");
+                String fullName = scanner.nextLine();
 
-        System.out.print("Enter security answer: ");
-        String securityAnswer = scanner.nextLine();
+                System.out.print("Enter security question: ");
+                String securityQuestion = scanner.nextLine();
 
-        loginManager.registerUser(
-                username,
-                password,
-                "Customer",
-                fullName,
-                securityQuestion,
-                securityAnswer
-        );
+                System.out.print("Enter security answer: ");
+                String securityAnswer = scanner.nextLine();
 
-    } else if (loginChoice == 2) {
+                loginManager.registerUser(
+                        username,
+                        password,
+                        "Customer",
+                        fullName,
+                        securityQuestion,
+                        securityAnswer
+                );
 
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
+            } else if (loginChoice == 2) {
 
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
+                System.out.print("Username: ");
+                String username = scanner.nextLine();
 
-        loggedInUser = loginManager.login(username, password);
+                System.out.print("Password: ");
+                String password = scanner.nextLine();
 
-        if (loggedInUser != null) {
-            System.out.println("Welcome " + loggedInUser.getFullName());
-             loggedInUser.displayUser();
-             loggedIn = true;
+                loggedInUser = loginManager.login(username, password);
+
+                if (loggedInUser != null) {
+
+                    System.out.println("Welcome " + loggedInUser.getFullName());
+
+                    loggedInUser.displayUser();
+
+                    loggedIn = true;
+                }
+
+            } else if (loginChoice == 3) {
+
+                System.out.println("Goodbye.");
+                scanner.close();
+                return;
+
+            } else {
+
+                System.out.println("Invalid option.");
+            }
         }
 
-    } else if (loginChoice == 3) {
+        // =========================
+        // BANK MANAGEMENT SYSTEM
+        // =========================
 
-        System.out.println("Goodbye.");
-        return;
-       } else {
-
-        System.out.println("Invalid option.");
-     }
+        int choice;
 
         do {
 
             System.out.println("\n===== BANK MANAGEMENT SYSTEM =====");
-
             System.out.println("1. Create Account");
             System.out.println("2. View Accounts");
             System.out.println("3. Search Account");
@@ -92,104 +105,41 @@ while (!loggedIn) {
             System.out.print("Choose option: ");
             choice = scanner.nextInt();
 
-
             switch (choice) {
-               
+
                 case 1:
-            System.out.print("Enter Account Number: ");
-            int accountNumber = scanner.nextInt();
-
-            scanner.nextLine();
-
-            System.out.print("Enter Customer Name: ");
-            String customerName = scanner.nextLine();
-
-            System.out.print("Enter Phone Number: ");
-            String phone = scanner.nextLine();
-
-            System.out.print("Enter Email: ");
-            String email = scanner.nextLine();
-
-            Customer customer =
-                   new Customer(accountNumber, customerName, phone, email);
-
-            System.out.print("Enter Initial Balance: ");
-            double balance = scanner.nextDouble();
-
-            manager.createAccount(accountNumber, customer, balance);
-            break;
+                    // CREATE ACCOUNT CODE
+                    break;
 
                 case 2:
-
                     manager.viewAccounts();
-
                     break;
 
                 case 3:
-
-                    System.out.print("Enter Account Number: ");
-                    int searchNumber = scanner.nextInt();
-
-                    BankAccount foundAccount = manager.searchAccount(searchNumber);
-
-                    if (foundAccount != null) {
-
-                        foundAccount.displayAccount();
-                    } else {
-
-                        System.out.println("Account not found.");
-
-                    }
-
+                    // SEARCH ACCOUNT CODE
                     break;
 
                 case 4:
-
-                    System.out.print("Enter Account Number: ");
-                    int depositNumber = scanner.nextInt();
-
-                    System.out.print("Enter Deposit Amount: ");
-                    double depositAmount = scanner.nextDouble();
-
-                    manager.depositMoney(depositNumber, depositAmount);
-
+                    // DEPOSIT CODE
                     break;
 
                 case 5:
-
-                    System.out.print("Enter Account Number: ");
-                    int withdrawNumber = scanner.nextInt();
-
-                    System.out.print("Enter Withdrawal Amount: ");
-                    double withdrawAmount = scanner.nextDouble();
-
-                    manager.withdrawMoney(withdrawNumber, withdrawAmount);
-
+                    // WITHDRAW CODE
                     break;
 
                 case 6:
-
-                    System.out.print("Enter Account Number to Delete: ");
-                    int deleteNumber = scanner.nextInt();
-
-                    manager.deleteAccount(deleteNumber);
-
+                    // DELETE CODE
                     break;
 
                 case 7:
-
                     manager.viewTransactions();
-
                     break;
 
                 case 8:
-
                     System.out.println("Goodbye!");
-
                     break;
 
                 default:
-
                     System.out.println("Invalid option.");
             }
 
@@ -197,5 +147,4 @@ while (!loggedIn) {
 
         scanner.close();
     }
-  }
 }

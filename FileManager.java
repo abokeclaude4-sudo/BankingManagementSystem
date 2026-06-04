@@ -3,17 +3,19 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-    // =========================
-    // SAVE BANK ACCOUNT
-    // =========================
+    // Save one account
     public static void saveAccount(BankAccount account) {
-
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("accounts.txt", true));
 
+            Customer customer = account.getCustomer();
+
             writer.println(
                     account.getAccountNumber() + "," +
-                    account.getOwnerName() + "," +
+                    customer.getCustomerId() + "," +
+                    customer.getFullName() + "," +
+                    customer.getPhone() + "," +
+                    customer.getEmail() + "," +
                     account.getBalance()
             );
 
@@ -24,11 +26,33 @@ public class FileManager {
         }
     }
 
-    // =========================
-    // LOAD BANK ACCOUNTS
-    // =========================
-    public static ArrayList<BankAccount> loadAccounts() {
+    // Save all accounts after update/delete/deposit/withdraw
+    public static void saveAllAccounts(ArrayList<BankAccount> accounts) {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("accounts.txt"));
 
+            for (BankAccount account : accounts) {
+                Customer customer = account.getCustomer();
+
+                writer.println(
+                        account.getAccountNumber() + "," +
+                        customer.getCustomerId() + "," +
+                        customer.getFullName() + "," +
+                        customer.getPhone() + "," +
+                        customer.getEmail() + "," +
+                        account.getBalance()
+                );
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Error saving accounts.");
+        }
+    }
+
+    // Load bank accounts
+    public static ArrayList<BankAccount> loadAccounts() {
         ArrayList<BankAccount> accounts = new ArrayList<>();
 
         try {
@@ -37,18 +61,22 @@ public class FileManager {
             String line;
 
             while ((line = reader.readLine()) != null) {
-
                 String[] data = line.split(",");
 
-                if (data.length < 3) {
+                if (data.length < 6) {
                     continue;
                 }
 
                 int accountNumber = Integer.parseInt(data[0]);
-                String ownerName = data[1];
-                double balance = Double.parseDouble(data[2]);
+                int customerId = Integer.parseInt(data[1]);
+                String fullName = data[2];
+                String phone = data[3];
+                String email = data[4];
+                double balance = Double.parseDouble(data[5]);
 
-                BankAccount account = new BankAccount(accountNumber, ownerName, balance);
+                Customer customer = new Customer(customerId, fullName, phone, email);
+
+                BankAccount account = new BankAccount(accountNumber, customer, balance);
 
                 accounts.add(account);
             }
@@ -62,11 +90,8 @@ public class FileManager {
         return accounts;
     }
 
-    // =========================
-    // SAVE USER
-    // =========================
+    // Save user
     public static void saveUser(User user) {
-
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("users.txt", true));
 
@@ -86,11 +111,8 @@ public class FileManager {
         }
     }
 
-    // =========================
-    // LOAD USERS
-    // =========================
+    // Load users
     public static ArrayList<User> loadUsers() {
-
         ArrayList<User> users = new ArrayList<>();
 
         try {
@@ -99,27 +121,19 @@ public class FileManager {
             String line;
 
             while ((line = reader.readLine()) != null) {
-
                 String[] data = line.split(",");
 
                 if (data.length < 6) {
                     continue;
                 }
 
-                String username = data[0];
-                String password = data[1];
-                String role = data[2];
-                String fullName = data[3];
-                String securityQuestion = data[4];
-                String securityAnswer = data[5];
-
                 User user = new User(
-                        username,
-                        password,
-                        role,
-                        fullName,
-                        securityQuestion,
-                        securityAnswer
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4],
+                        data[5]
                 );
 
                 users.add(user);

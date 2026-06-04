@@ -5,7 +5,9 @@ public class Customer {
     private String phone;
     private String email;
 
-    public Customer(int customerId, String fullName, String phone, String email) {
+    public Customer(int customerId, String fullName,
+                    String phone, String email) {
+
         this.customerId = customerId;
         this.fullName = fullName;
         this.phone = phone;
@@ -33,5 +35,13 @@ public class Customer {
         System.out.println("Name: " + fullName);
         System.out.println("Phone: " + phone);
         System.out.println("Email: " + email);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer ID: " + customerId +
+               "\nName: " + fullName +
+               "\nPhone: " + phone +
+               "\nEmail: " + email;
     }
 }

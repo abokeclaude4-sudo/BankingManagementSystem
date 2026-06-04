@@ -15,9 +15,9 @@ public class CurrentAccount extends BankAccount {
     @Override
     public void withdraw(double amount) {
 
-        if (amount <= (balance + overdraftLimit)) {
+        if (amount <= (getBalance() + overdraftLimit)) {
 
-            balance -= amount;
+            setBalance(getBalance() - amount);
 
             System.out.println("Withdrawal successful.");
 

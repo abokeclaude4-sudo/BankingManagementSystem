@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Transaction {
+
     private String type;
     private double amount;
     private LocalDateTime dateTime;
@@ -12,8 +13,28 @@ public class Transaction {
         this.dateTime = LocalDateTime.now();
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return dateTime.format(formatter) + " | " + type + " | $" + amount;
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        return dateTime.format(formatter)
+                + " | "
+                + type
+                + " | $"
+                + amount;
     }
 }
