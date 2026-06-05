@@ -100,6 +100,7 @@ public class Main {
             System.out.println("5. Withdraw Money");
             System.out.println("6. Delete Account");
             System.out.println("7. View Transactions");
+            System.out.println("8. Transfer Money");
             System.out.println("8. Exit");
 
             System.out.print("Choose option: ");
@@ -107,43 +108,97 @@ public class Main {
 
             switch (choice) {
 
-                case 1:
-                    // CREATE ACCOUNT CODE
-                    break;
+    case 1:
+        System.out.print("Enter Account Number: ");
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
 
-                case 2:
-                    manager.viewAccounts();
-                    break;
+        System.out.print("Enter Customer Name: ");
+        String customerName = scanner.nextLine();
 
-                case 3:
-                    // SEARCH ACCOUNT CODE
-                    break;
+        System.out.print("Enter Phone Number: ");
+        String phone = scanner.nextLine();
 
-                case 4:
-                    // DEPOSIT CODE
-                    break;
+        System.out.print("Enter Email: ");
+        String email = scanner.nextLine();
 
-                case 5:
-                    // WITHDRAW CODE
-                    break;
+        Customer customer = new Customer(accountNumber, customerName, phone, email);
 
-                case 6:
-                    // DELETE CODE
-                    break;
+        System.out.print("Enter Initial Balance: ");
+        double balance = scanner.nextDouble();
 
-                case 7:
-                    manager.viewTransactions();
-                    break;
+        manager.createAccount(accountNumber, customer, balance);
+        break;
 
-                case 8:
-                    System.out.println("Goodbye!");
-                    break;
+    case 2:
+        manager.viewAccounts();
+        break;
 
-                default:
-                    System.out.println("Invalid option.");
-            }
+    case 3:
+        System.out.print("Enter Account Number: ");
+        int searchNumber = scanner.nextInt();
 
-        } while (choice != 8);
+        BankAccount foundAccount = manager.searchAccount(searchNumber);
+
+        if (foundAccount != null) {
+            foundAccount.displayAccount();
+        } else {
+            System.out.println("Account not found.");
+        }
+        break;
+
+    case 4:
+        System.out.print("Enter Account Number: ");
+        int depositNumber = scanner.nextInt();
+
+        System.out.print("Enter Deposit Amount: ");
+        double depositAmount = scanner.nextDouble();
+
+        manager.depositMoney(depositNumber, depositAmount);
+        break;
+
+    case 5:
+        System.out.print("Enter Account Number: ");
+        int withdrawNumber = scanner.nextInt();
+
+        System.out.print("Enter Withdrawal Amount: ");
+        double withdrawAmount = scanner.nextDouble();
+
+        manager.withdrawMoney(withdrawNumber, withdrawAmount);
+        break;
+
+    case 6:
+        System.out.print("Enter Account Number to Delete: ");
+        int deleteNumber = scanner.nextInt();
+
+        manager.deleteAccount(deleteNumber);
+        break;
+
+    case 7:
+        manager.viewTransactions();
+        break;
+
+    case 8:
+        System.out.print("Enter Sender Account Number: ");
+        int fromAccount = scanner.nextInt();
+
+        System.out.print("Enter Receiver Account Number: ");
+        int toAccount = scanner.nextInt();
+
+        System.out.print("Enter Transfer Amount: ");
+        double transferAmount = scanner.nextDouble();
+
+        manager.transferMoney(fromAccount, toAccount, transferAmount);
+        break;
+
+    case 9:
+        System.out.println("Goodbye!");
+        break;
+
+    default:
+        System.out.println("Invalid option.");
+}
+        } while (choice != 9);
 
         scanner.close();
     }

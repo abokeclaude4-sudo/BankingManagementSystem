@@ -104,4 +104,31 @@ public class BankManager {
             System.out.println("Account not found.");
         }
     }
+    public void transferMoney(int fromAccount,
+                          int toAccount,
+                          double amount) {
+
+    BankAccount sender = searchAccount(fromAccount);
+    BankAccount receiver = searchAccount(toAccount);
+
+    if (sender == null) {
+        System.out.println("Sender account not found.");
+        return;
+    }
+
+    if (receiver == null) {
+        System.out.println("Receiver account not found.");
+        return;
+    }
+
+    if (sender.getBalance() < amount) {
+        System.out.println("Insufficient funds.");
+        return;
+    }
+
+    sender.withdraw(amount);
+    receiver.deposit(amount);
+
+    System.out.println("Transfer completed successfully.");
+ }
 }
